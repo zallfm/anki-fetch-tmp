@@ -1,8 +1,7 @@
-name: t
-on:
-  workflow_dispatch:
+name: fetch
+on: [push]
 jobs:
-  t:
+  f:
     runs-on: ubuntu-latest
     steps:
       - run: echo hi
