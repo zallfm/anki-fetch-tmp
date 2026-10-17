@@ -4,4 +4,15 @@ jobs:
   f:
     runs-on: ubuntu-latest
     steps:
-      - run: echo hi
+      - name: dl
+        run: |
+          set -e
+          T=$(curl -s "https://ankiweb.net/svc/shared/item-info?sharedId=1358626841" | grep -oE 'eyJ[A-Za-z0-9_.-]+' | tail -1)
+          echo "tok ${#T}"
+          curl -sL -A "Mozilla/5.0" -e "https://ankiweb.net/shared/info/1358626841" "https://ankiweb.net/svc/shared/download-deck/1358626841?t=$T" -o deck.apkg -w "dl http=%{http_code}\n"
+          file deck.apkg || true
+          ls -la deck.apkg
+      - uses: actions/upload-artifact@v4
+        with:
+          name: deck
+          path: deck.apkg
