@@ -1,8 +1,11 @@
 name: fetch
-on: [push]
+on:
+  push:
+    branches: [ main ]
 jobs:
   fetch:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: download
         run: |
